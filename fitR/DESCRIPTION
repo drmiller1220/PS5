@@ -1,0 +1,22 @@
+Package: squaresPack
+Title: Adding and subtracting squared values
+Version: 0.1
+Author: Jacob M. Montgomery and Ryan T. Moore
+Maintainer: Ryan T. Moore <rtm@wustl.edu>
+Description: Find sum and difference of squared values
+Depends:
+    R (>= 3.0.0),
+    methods
+License: GPL (>= 2)
+Suggests:
+    devtools,
+    testthat
+Collate:
+    'Squares.R'
+    'addSquares.R'
+    'squaresPack-package.r'
+    'subtractSquares.R'
+    'exampleDataset.R'
+    'allSquares.R'
+    'AllSquares-class.R'
+RoxygenNote: 6.0.1
