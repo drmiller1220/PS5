@@ -5,7 +5,7 @@
 \alias{fitR-class}
 \title{A fitR object}
 \description{
-Object of class \code{fitR} are created by the \code{fitR} function
+Object of class \code{fitR} are created by the \code{fitRstats} function
 }
 \details{
 An object of the class `fitR' has the following slots:

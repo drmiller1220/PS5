@@ -1,16 +1,15 @@
 Package: fitR
-Title: Adding and subtracting squared values
+Title: Calculating fit statistics for prediction models
 Version: 0.1
-Author: Jacob M. Montgomery and Ryan T. Moore
-Maintainer: Ryan T. Moore <rtm@wustl.edu>
+Author: David R. Miller
+Maintainer: David R. Miller <drmiller@wustl.edu>
 Description: Find sum and difference of squared values
 Depends:
     R (>= 3.0.0),
     methods
 License: GPL (>= 2)
 Suggests:
-    devtools,
-    testthat
+    devtools
 Collate:
     'fitR-package.r'
     'fitR-class.R'
