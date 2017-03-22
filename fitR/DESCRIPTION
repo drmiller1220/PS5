@@ -1,4 +1,4 @@
-Package: squaresPack
+Package: fitR
 Title: Adding and subtracting squared values
 Version: 0.1
 Author: Jacob M. Montgomery and Ryan T. Moore
@@ -12,11 +12,7 @@ Suggests:
     devtools,
     testthat
 Collate:
-    'Squares.R'
-    'addSquares.R'
-    'squaresPack-package.r'
-    'subtractSquares.R'
-    'exampleDataset.R'
-    'allSquares.R'
-    'AllSquares-class.R'
+    'fitR-package.r'
+    'fitR-class.R'
+    'fitRstats.R'
 RoxygenNote: 6.0.1

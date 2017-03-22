@@ -16,13 +16,6 @@ setClass('fitR', # creating an S4 'fitR' object
          slots=c(statistics='matrix')
 )
 
-#' @export
-setMethod("initialize", "fitR", 
-     function(.Object, ...){
-           value=callNextMethod()
-           return(value)
-         }
-         ) 
 
 #' @rdname fitR
 #' @export 
@@ -32,6 +25,7 @@ setGeneric("getfitR",
        }
        )
 
+#' @rdname fitR
 #' @export
 setMethod("getfitR", "fitR",
      function(object){ 
