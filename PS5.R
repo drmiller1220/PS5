@@ -146,9 +146,28 @@ naive_values <- rep(median(test_set$ft_dpc), length(test_set$ft_dpc))
 # before continuing, compile and install package using documentation file
 
 library(fitR) # loading in package
-stat_results <- fitRstats(true=true_values, predicted=predictions, 
-                          naive=naive_values, statistics = c("rmse","mad","meape",
-                                                                 "rmsle","mape","mrae"))
+
+# calculating only non-mrae fit statistics
+stat_results <- fitRstats(true=true_values, predicted=predictions,
+                          statistics = c("rmse","mad","meape","rmsle","mape"))
+
+# calculating all fit statistics
+stat_results <- fitRstats(true=true_values, predicted=predictions, naive= naive_values,
+                          statistics = c("rmse","mad","meape","rmsle","mape","mrae"))
+
+# throwing error if mrae is requested without supplying naive forecasts
+stat_results <- fitRstats(true=true_values, predicted=predictions,
+                          statistics = c("rmse","mad","meape","rmsle","mape","mrae"))
+
+# throwing error if input is of front class
+stat_results <- fitRstats(true=c("c",2,3,"d"), predicted=predictions, naive= naive_values,
+                          statistics = c("rmse","mad","meape","rmsle","mape","mrae"))
+
+# throwing warning if some values are NA
+stat_results <- fitRstats(true=c(true_values[1:(length(true_values)-1)],NA), 
+                          predicted=predictions, naive= naive_values,
+                          statistics = c("rmse","mad","meape","rmsle","mape","mrae"))
+
 # using the function from the package to obtain the fit statistics
 
 # having fit the models, we look at the six fit statistics calculated across models.

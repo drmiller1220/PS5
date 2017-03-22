@@ -17,27 +17,27 @@
 #' @rdname fitRstats
 #' @export
 setGeneric(name="fitRstats",
-           def=function(true, predicted, naive, statistics, ...)
+           def=function(true, predicted, statistics, ...)
            {standardGeneric("fitRstats")} # creating a generic method for fitRstats
            )
 
 #' @rdname fitRstats
 #' @export
 setMethod(f="fitRstats", # creating a method for fitRstats
-          definition=function(true, predicted, naive=NULL, statistics="rmse", ...){
-            # the true, predicted, and naive inputs must be numeric values
-            # true and naive must be vectors
+          definition=function(true, predicted, statistics, naive=NULL, ...){
+            # the true and predicted inputs must be numeric values
+            # true must be vectors
             # predicted must be a matrix
-            # the first three ``if'' statements check if these conditions are met, and
+            # the first two ``if'' statements check if these conditions are met, and
             # stop execution and throw errors if they are not
             if(!is.vector(true)==TRUE | !is.numeric(true)==TRUE){
               stop("`true' values must be a vector of numeric values")
             }
-            if(!is.vector(naive)==TRUE | !is.numeric(naive)==TRUE){
-              stop("`naive' values must be a vector of numeric values")
-            }
             if(!is.matrix(predicted)==TRUE | !is.numeric(predicted)==TRUE){
               stop("`predicted' values must be a matrix of numeric values")
+            }
+            if(sum(is.na(true)>0) | sum(is.na(predicted)>0)){
+              warning("some inputted values are NAs; some fit statistics may not compute")
             }
             # creating a null object in which to store the fit statistics
             statistics_output <- NULL
@@ -51,9 +51,7 @@ setMethod(f="fitRstats", # creating a method for fitRstats
             # error over the true value; 
             # see http://www.sciencedirect.com/science/article/pii/S0169207016000121
             abs_pct_error <- apply(predicted, MAR=2, FUN=function(x) ifelse(x==0, pi/2, atan(abs((x - true)/true))))
-            # calculating the baseline as directed
-            baseline <- abs(naive-true)
-            # if the user requested rmse, or did not make any requests (rmse is the default),
+            # if the user requested rmse,
             # calculate the rmse for each model, and cbind the fit statistics to the object
             if("rmse" %in% statistics){
               rmse <- apply(abs_error, MAR=2, FUN=function(x) sqrt(sum(x^2)/length(x)))
@@ -92,6 +90,16 @@ setMethod(f="fitRstats", # creating a method for fitRstats
             # if the user requested mape, or did not make any requests,
             # calculate the mape for each model, and cbind the fit statistics to the object
             if("mrae" %in% statistics){
+              # checking to make sure user supplies necessary naive forecasts
+              if(length(naive)==0){
+                stop("To calculate mrae, you must supply naive forecasts")
+              }
+              # checking if naive values are of appropriate class
+              if(!is.vector(naive)==TRUE | !is.numeric(naive)==TRUE){
+                stop("`naive' values must be a vector of numeric values")
+              }
+              # calculating the baseline as directed
+              baseline <- abs(naive-true)
               mrae <- apply(abs_pct_error, MAR=2, FUN=function(x) median(x/baseline))
               statistics_output <- cbind(statistics_output, mrae)
             }

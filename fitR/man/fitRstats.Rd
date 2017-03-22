@@ -6,10 +6,9 @@
 \alias{fitRstats,ANY-method}
 \title{fitRstats}
 \usage{
-fitRstats(true, predicted, naive, statistics, ...)
+fitRstats(true, predicted, statistics, ...)
 
-\S4method{fitRstats}{ANY}(true, predicted, naive = NULL,
-  statistics = "rmse", ...)
+\S4method{fitRstats}{ANY}(true, predicted, statistics, naive = NULL, ...)
 }
 \arguments{
 \item{true}{A vector of the true values}
@@ -17,12 +16,12 @@ fitRstats(true, predicted, naive, statistics, ...)
 \item{predicted}{A matrix of values predicted by competing models, with one column for
 each model}
 
-\item{naive}{A vector of naive forecasts}
-
 \item{statistics}{A vector of character strings indicating the fit statistics to
 be calculated}
 
 \item{...}{Other arguments to be passed through}
+
+\item{naive}{A vector of naive forecasts}
 }
 \value{
 A matrix with one row for each competing model, and one column for each fit 
